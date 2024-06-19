@@ -1,20 +1,22 @@
-'use strict'
+const express = require("express");
+const app = express();
 
-var mongoose = require('mongoose');
-var app = require('./app')
-var port = process.env.PORT || 3800
-require('dotenv').config();
+const port = process.env.PORT || 3000;
 
-//conexion database
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/prueba2')
-	.then(()=>{
-		console.log("La conexion a la base de datos se ha realizado correctamente")
+app.get("/", (req, res) => {
+  const htmlResponse = `
+    <html>
+      <head>
+        <title>NodeJs y Express en Vercel</title>
+      </head>
+      <body>
+        <h1>Soy un proyecto Back end en vercel</h1>
+      </body>
+    </html>
+  `;
+  res.send(htmlResponse);
+});
 
-		//crear servidor
-		app.listen(port, ()=>{
-			console.log("Servidor corriendo en http://localhost:3800")
-		})
-
-	})
-	.catch(err => console.log(err))
+app.listen(port, () => {
+  console.log(`port runing in http://localhost:${port}`);
+});
